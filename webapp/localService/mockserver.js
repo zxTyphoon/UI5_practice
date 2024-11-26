@@ -4,18 +4,18 @@ sap.ui.define(
 		"use strict";
 		return {
 			init: function () {
-				var oMockServer = new MockServer({
+				let oMockServer = new MockServer({
 					rootUri:
 						"https://services.odata.org/V2/Northwind/Northwind.svc/",
 				});
-				var oUriParameters = new UriParameters(window.location.href);
+				let oUriParameters = new UriParameters(window.location.href);
 
 				MockServer.config({
 					autoRespond: true,
 					autoRespondAfter: oUriParameters.get("serverDelay") || 500,
 				});
 
-				var sPath = "../localService";
+				let sPath = "../localService";
 				oMockServer.simulate(
 					sPath + "/metadata.xml",
 					sPath + "/mockdata"

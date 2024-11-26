@@ -2,7 +2,7 @@ sap.ui.define([], function () {
 	"use strict";
 	return {
 		statusText: function (sStatus) {
-			var resourceBundle = this.getView()
+			let resourceBundle = this.getView()
 				.getModel("i18n")
 				.getResourceBundle();
 			switch (sStatus) {

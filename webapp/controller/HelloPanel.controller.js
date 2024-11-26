@@ -11,13 +11,13 @@ sap.ui.define(
 			{
 				onShowHello: function () {
 					// read msg from i18n model
-					var oBundle = this.getView()
+					let oBundle = this.getView()
 						.getModel("i18n")
 						.getResourceBundle();
-					var sRecipient = this.getView()
+					let sRecipient = this.getView()
 						.getModel()
 						.getProperty("/recipient/name");
-					var sMsg = oBundle.getText("helloMsg", [sRecipient]);
+					let sMsg = oBundle.getText("helloMsg", [sRecipient]);
 					// Show message
 					MessageToast.show(sMsg);
 				},

@@ -1,6 +1,10 @@
 sap.ui.define(
-	["sap/ui/base/ManagedObject", "sap/ui/core/Fragment"],
-	function (ManagedObject, Fragment) {
+	[
+		"sap/ui/base/ManagedObject",
+		"sap/ui/core/Fragment",
+		"sap/ui/core/syncStyleClass",
+	],
+	function (ManagedObject, Fragment, syncStyleClass) {
 		"use strict";
 
 		return ManagedObject.extend(
@@ -15,10 +19,10 @@ sap.ui.define(
 				},
 
 				open: function () {
-					var oView = this._oView;
+					let oView = this._oView;
 
 					if (!oView.byId("helloDialog")) {
-						var oFragmentController = {
+						let oFragmentController = {
 							onCloseDialog: function () {
 								oView.byId("helloDialog").close();
 							},
@@ -29,6 +33,14 @@ sap.ui.define(
 							controller: oFragmentController,
 						}).then(function (oDialog) {
 							oView.addDependent(oDialog);
+							syncStyleClass(
+								oView
+									.getController()
+									.getOwnerComponent()
+									.getContentDensityClass(),
+								oView,
+								oDialog
+							);
 							oDialog.open();
 						});
 					} else {

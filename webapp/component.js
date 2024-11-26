@@ -4,8 +4,9 @@ sap.ui.define(
 		"sap/ui/model/json/JSONModel",
 		"sap/ui/model/resource/ResourceModel",
 		"./controller/HelloDialog",
+		"sap/ui/Device",
 	],
-	function (UIComponent, JSONModel, ResourceModel, HelloDialog) {
+	function (UIComponent, JSONModel, ResourceModel, HelloDialog, Device) {
 		"use strict";
 		return UIComponent.extend("sap.ui.demo.walkthrough.Component", {
 			metadata: {
@@ -15,15 +16,32 @@ sap.ui.define(
 				// call the init function of the parent
 				UIComponent.prototype.init.apply(this, arguments);
 				// set data models
-				var oData = {
+				let oData = {
 					recipient: {
 						name: "UI5",
 					},
 				};
-				var oModel = new JSONModel(oData);
+				let oModel = new JSONModel(oData);
 				this.setModel(oModel);
 
+				let oDeviceModel = new JSONModel(Device);
+				oDeviceModel.setDefaultBindingMode("OneWay");
+				this.setModel(oDeviceModel, "device");
+
 				this._helloDialog = new HelloDialog(this.getRootControl());
+
+				this.getRouter().initialize();
+			},
+
+			getContentDensityClass: function () {
+				if (!this._sContentDensityClass) {
+					if (!Device.support.touch) {
+						this._sContentDensityClass = "sapUiSizeCompact";
+					} else {
+						this._sContentDensityClass = "sapUiSizeCozy";
+					}
+				}
+				return this._sContentDensityClass;
 			},
 
 			exit: function () {

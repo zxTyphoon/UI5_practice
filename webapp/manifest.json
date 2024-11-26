@@ -95,15 +95,46 @@
         },
         "handleValidation": false,
         "config": {},
-        "routing": {},
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "sap.ui.demo.walkthrough.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "overview",
+                    "target": "overview"
+                },
+                {
+                    "pattern": "detail/{invoicePath}",
+                    "name": "detail",
+                    "target": "detail"
+                }
+            ],
+            "targets": {
+                "overview": {
+                    "viewId": "overview",
+                    "viewName": "Overview"
+                },
+                "detail": {
+                    "viewId": "detail",
+                    "viewName": "Detail"
+                }
+            }
+        },
         "extends": {
             "component": "<extendedComponentId>",
             "minVersion": "<minComp1Version>",
             "extensions": {}
         },
         "contentDensities": {
-            "compact": false,
-            "cozy": false
+            "compact": true,
+            "cozy": true
         }
     },
     "sap.platform.abap": {
